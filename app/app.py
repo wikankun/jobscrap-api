@@ -2,6 +2,7 @@ from fastapi import FastAPI, Security,Depends, HTTPException
 from fastapi.security.api_key import APIKeyQuery, APIKey
 from app.db.mongo import *
 from dotenv import load_dotenv
+import json
 
 from starlette.status import HTTP_403_FORBIDDEN
 from starlette.responses import JSONResponse
@@ -39,5 +40,5 @@ async def show_job(job_id, api_key: APIKey = Depends(get_api_key)):
 
 @app.post("/jobs/")
 async def upsert_job(docs, api_key: APIKey = Depends(get_api_key)):
-    return db.upsert(docs)
+    return db.upsert(json.loads(docs))
 
