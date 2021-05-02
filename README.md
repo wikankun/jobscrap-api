@@ -1,2 +1,1 @@
-# jobscrap-api
-Jobstreet Scrapping Application API
+uvicorn app.app:app --reload
