@@ -1,8 +1,8 @@
-from fastapi import FastAPI, Security,Depends, HTTPException
+from fastapi import FastAPI, Security, Depends, HTTPException
 from fastapi.security.api_key import APIKeyQuery, APIKey
-from pydantic import BaseModel
 from typing import List
 from app.db.mongo import *
+from app.models.jobs import Jobs
 from dotenv import load_dotenv
 import json
 
@@ -27,18 +27,6 @@ async def get_api_key(api_key_query: str = Security(api_key_query)):
             status_code=HTTP_403_FORBIDDEN, detail="Could not validate credentials"
         )
 
-
-class Jobs(BaseModel):
-    job_id: str
-    job_title: str
-    company: str
-    job_post_date: str
-    job_requirement_career_level: str
-    company_size: str
-    company_industry: str
-    job_description: str
-    job_employment_type: str
-    job_function: str
 
 app = FastAPI(redoc_url=None)
 db = Mongo(MONGO_URL, DATABASE, COLLECTION)
