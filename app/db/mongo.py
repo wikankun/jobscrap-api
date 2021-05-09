@@ -10,7 +10,7 @@ class Mongo:
 
     def index(self):
         try:
-            return [doc for doc in self.collection.find( {}, {'_id': 0} )]
+            return [doc for doc in self.collection.find({}, {'_id': 0}).limit(100)]
         except:
             return 'failed'
 
